@@ -1,23 +1,23 @@
 var decoder = require("./decoder.js");
 
-function super_decoder(sentence, type) {
-	var types = type.split("-");
+function super_decoder(sentence, type, forwards) {
+	var forwards = forwards || false;
 	var words = [];
-	if (types[0] === "every") {
+	if (type === "every") {
 		words = sentence.split(" ");
-	} else if (types[0] === "odd") {
+	} else if (type === "odd") {
 		words = sentence.split(" ").filter(function (word, index) {
 			return index % 2 != 0;
 		});
-	} else if (types[0] === "even") {
+	} else if (type === "even") {
 		words = sentence.split(" ").filter(function (word, index) {
 			return index === 0 || index % 2 === 0;
 		});
 	}
 
-	if (types[1] === "forwards") {
+	if (forwards) {
 		return decoder(words);
-	} else if (types[1] === "backwards") {
+	} else {
 		return decoder(words.reverse());
 	}
 }
